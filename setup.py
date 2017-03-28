@@ -2,6 +2,7 @@
 import os
 import re
 from setuptools import setup, find_packages
+from flag_bearer import __version__
 
 
 ROOT = os.path.dirname(__file__)
@@ -24,7 +25,7 @@ def read(fname):
 
 setup(
     name='flag-bearer',
-    version='0.1',
+    version=__version__,
     url='http://github.com/ISEAGE-ISU/flag-bearer',
     description='CDC IScorE Flag Utility',
     long_description=read('README.md'),
@@ -39,6 +40,9 @@ setup(
         'Topic :: Internet :: WWW/HTTP',
     ],
     entry_points={
+        'console_scripts': [
+            'flag-bearer=flag_bearer.cli:main',
+        ]
     }
 )
 
