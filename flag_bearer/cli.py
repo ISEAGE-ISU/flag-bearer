@@ -3,12 +3,18 @@ from flag_bearer import __version__, actions
 
 
 parser = ArgumentParser()
+parser.add_argument('--iscore-url', help="IScorE base url",
+                    default='https://iscore.iseage.org')
+parser.add_argument('--api-version', default='v1')
+parser.add_argument('--api-token')
 subparsers = parser.add_subparsers()
 
 
 plant = subparsers.add_parser('plant')
 plant.set_defaults(func=actions.plant)
 plant.add_argument('-f', '--flag', help="The name of the flag to plant")
+plant.add_argument('-l', '--location', help="The location to plant the flag")
+plant.add_argument('-n', '--team', help="The team number")
 
 
 def main():
