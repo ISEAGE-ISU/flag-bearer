@@ -1,22 +1,18 @@
 import requests
 import sys
+import os
 
 
-def plant(args):
-    api_url = "{}/api/{}".format(args.iscore_url, args.api_version)
+def plant(conf):
+    api_url = "{}/api/{}".format(conf['iscore']['base_url'],
+                                 conf['iscore']['api_version'])
 
-    if not args.api_token:
-        print("Enter Your IScorE API Key")
-        api_key = input("> ")
-        print()
-    else:
-        api_key = args.api_token
+    extras = conf.request_extras()
+    resp = requests.get(api_url + "/user/show.json", **extras)
+    if resp.status_code == 403:
+        print("[!!] Unauthorized: Invalid authentication information")
+        sys.exit(1)
 
-    headers = {
-        'Authorization': 'Token {}'.format(api_key),
-    }
-
-    resp = requests.get(api_url + "/user/show.json", headers=headers)
     resp.raise_for_status()
     resp = resp.json()
 
@@ -28,7 +24,7 @@ def plant(args):
         team = int(input("> "))
         flag_url += "?team_number={}".format(team)
 
-    resp = requests.get(flag_url, headers=headers)
+    resp = requests.get(flag_url, **extras)
     resp.raise_for_status()
     resp = resp.json()
 
@@ -54,6 +50,7 @@ def plant(args):
         location = "./"
 
     print("Placing {} flag in {}".format(flag['name'], location))
-    with open(flag['filename'], 'w') as fp:
+    with open(os.path.join(location, flag['filename']), 'w') as fp:
         fp.write(flag['data'])
+        fp.write("\n")
 

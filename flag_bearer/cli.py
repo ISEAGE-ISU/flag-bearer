@@ -1,10 +1,9 @@
 from argparse import ArgumentParser
-from flag_bearer import __version__, actions
+from flag_bearer import __version__, actions, config
 
 
 parser = ArgumentParser()
-parser.add_argument('--iscore-url', help="IScorE base url",
-                    default='https://iscore.iseage.org')
+parser.add_argument('--iscore-url', help="IScorE base url", default=None)
 parser.add_argument('--api-version', default='v1')
 parser.add_argument('--api-token')
 subparsers = parser.add_subparsers()
@@ -25,5 +24,7 @@ def main():
         parser.print_help()
         return
 
-    args.func(args)
+    conf = config.Config.load()
+    conf.merge(args)
+    args.func(conf)
 
