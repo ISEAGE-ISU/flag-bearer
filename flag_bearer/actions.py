@@ -12,7 +12,23 @@ def plant(args):
     else:
         api_key = args.api_token
 
-    resp = requests.get(api_url + "/flags.json", headers={'Authorization': 'Token ' + api_key})
+    headers = {
+        'Authorization': 'Token {}'.format(api_key),
+    }
+
+    resp = requests.get(api_url + "/user/show.json", headers=headers)
+    resp.raise_for_status()
+    resp = resp.json()
+
+    flag_url = api_url + "/flags.json"
+
+    red = resp['profile']['is_red']
+    if red:
+        print("Which team do you want to get flags for?")
+        team = int(input("> "))
+        flag_url += "?team_number={}".format(team)
+
+    resp = requests.get(flag_url, headers=headers)
     resp.raise_for_status()
     resp = resp.json()
 
