@@ -31,7 +31,9 @@ setup(
     long_description=read('README.md'),
     author='ISEAGE',
     author_email='iseage@iastate.edu',
+    license='MIT',
     packages=find_packages(),
+
     setup_requires=[
         'pytest-runner',
     ],
@@ -41,19 +43,29 @@ setup(
         'pytest',
         'tox',
     ],
+
     classifiers=[
         'Development Status :: 4 - Beta',
-        'Programming Language :: Python',
+
         'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
+        'Programming Lnaguage :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
+
         'Topic :: Internet :: WWW/HTTP',
+
+        'License :: OSI Approved :: MIT License',
     ],
+
     entry_points={
         'console_scripts': [
             'flag-bearer=flag_bearer.cli:main',
         ]
-    }
+    },
+    package_data={
+        'flag_bearer': ['default.ini'],
+    },
 )
 
