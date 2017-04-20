@@ -1,4 +1,8 @@
-from configparser import ConfigParser
+try:
+    from configparser import ConfigParser
+except ImportError:
+    from ConfigParser import ConfigParser
+
 from os.path import expanduser, dirname, join, exists
 import getpass
 
@@ -26,6 +30,8 @@ class Config(ConfigParser):
         """
         Merge the configuration files with parsed arguments.
         """
+        if 'iscore' not in self:
+            self['iscore'] = {}
 
         if args.iscore_url:
             self['iscore']['base_url'] = args.iscore_url
