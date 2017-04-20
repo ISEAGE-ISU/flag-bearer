@@ -33,10 +33,13 @@ def plant(conf):
     resp.raise_for_status()
     resp = resp.json()
 
-    flags = {i: x for i, x in enumerate(resp) if team and x['team_number'] == team}
+    if team:
+        resp = list(filter(lambda x: x['team_number'] == team, resp))
+    flags = {i: x for i, x in enumerate(resp)}
 
     print("Pick the flag to place")
     for flag_id, flag in flags.items():
+        # Admins can see both blue and red flags, tell them which is which
         if admin:
             print("{}. {} ({})".format(flag_id, flag['name'], flag['type']))
         else:
@@ -51,14 +54,18 @@ def plant(conf):
 
     flag = flags[flag]
 
-    print("Where should I put the flag?")
-    location = input("(./) > ")
+    save = 'force_save' in conf['iscore'] if red or admin else True
+    if save or (not red and not admin):
+        print("Where should I put the flag?")
+        location = input("(./) > ")
 
-    if not location:
-        location = "./"
+        if not location:
+            location = "./"
 
-    print("Placing {} flag in {}".format(flag['name'], location))
-    with open(os.path.join(location, flag['filename']), 'w') as fp:
-        fp.write(flag['data'])
-        fp.write("\n")
+        print("Placing {} flag in {}".format(flag['name'], location))
+        with open(os.path.join(location, flag['filename']), 'w') as fp:
+            fp.write(flag['data'])
+            fp.write("\n")
+    else:
+        print("Flag: {}".format(flag['data']))
 

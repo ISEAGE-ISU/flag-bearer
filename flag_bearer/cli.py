@@ -14,6 +14,8 @@ plant.set_defaults(func=actions.plant)
 plant.add_argument('-f', '--flag', help="The name of the flag to plant")
 plant.add_argument('-l', '--location', help="The location to plant the flag")
 plant.add_argument('-n', '--team', help="The team number")
+plant.add_argument('-s', '--save', action='store_true', default=False, 
+                   help="Force the flag to be downloaded")
 
 
 def main():

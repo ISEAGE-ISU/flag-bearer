@@ -39,6 +39,9 @@ class Config(ConfigParser):
         if args.api_version:
             self['iscore']['api_version'] = args.api_version
 
+        if args.save:
+            self['iscore']['force_save'] = 'yes'
+
         self.credentials = None
         if args.api_token:
             self.api_token = args.api_token
