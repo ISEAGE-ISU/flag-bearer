@@ -20,9 +20,8 @@ class Config(ConfigParser):
             return conf
 
         flagrc = join(expanduser('~'), '.flagrc')
-        print("Loading {}".format(flagrc))
         if exists(flagrc):
-            print("Loading")
+            print("Loading {}".format(flagrc))
             conf.read(flagrc)
 
         return conf
@@ -51,7 +50,6 @@ class Config(ConfigParser):
             self.api_token = input("> ")
 
             if not self.api_token:
-                print()
                 print("Please login using your IScorE credentials")
                 username = input("Username: ")
                 password = getpass.getpass()
