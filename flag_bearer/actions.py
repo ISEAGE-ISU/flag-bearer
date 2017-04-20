@@ -18,21 +18,29 @@ def plant(conf):
 
     flag_url = api_url + "/flags.json"
 
+    team = None
     red = resp['profile']['is_red']
-    if red:
+    admin = resp['is_superuser']
+    if red or admin:
         print("Which team do you want to get flags for?")
-        team = int(input("> "))
-        flag_url += "?team_number={}".format(team)
+        try:
+            team = int(input("> "))
+            flag_url += "?team_number={}".format(team)
+        except ValueError:
+            print("Retreiving flags for all teams")
 
     resp = requests.get(flag_url, **extras)
     resp.raise_for_status()
     resp = resp.json()
 
-    flags = {x['id']: x for x in resp}
+    flags = {i: x for i, x in enumerate(resp) if team and x['team_number'] == team}
 
     print("Pick the flag to place")
     for flag_id, flag in flags.items():
-        print("{}. {}".format(flag_id, flag['name']))
+        if admin:
+            print("{}. {} ({})".format(flag_id, flag['name'], flag['type']))
+        else:
+            print("{}. {}".format(flag_id, flag['name']))
 
     flag = int(input("> "))
     print()
