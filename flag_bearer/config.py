@@ -1,7 +1,4 @@
-try:
-    from configparser import ConfigParser
-except ImportError:
-    from ConfigParser import ConfigParser
+from six.moves.configparser import ConfigParser
 
 from os.path import expanduser, dirname, join, exists
 import getpass

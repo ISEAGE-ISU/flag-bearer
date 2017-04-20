@@ -32,7 +32,14 @@ setup(
     author='ISEAGE',
     author_email='iseage@iastate.edu',
     packages=find_packages(),
+    setup_requires=[
+        'pytest-runner',
+    ],
     install_requires=parse_requirements(os.path.join(ROOT, 'requirements.txt')),
+    tests_require=[
+        'pytest',
+        'tox',
+    ],
     classifiers=[
         'Development Status :: 4 - Beta',
         'Programming Language :: Python',
