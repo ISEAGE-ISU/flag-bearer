@@ -1,0 +1,27 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept: ['*/*']
+      Accept-Encoding: ['gzip, deflate']
+      Authorization: [Token 32257d57fcae845fc89db97a0835c78b60fb8adb]
+      Connection: [keep-alive]
+      User-Agent: [python-requests/2.13.0]
+    method: GET
+    uri: http://localhost:8000/api/v1/user/show.json
+  response:
+    body:
+      string: !!binary |
+        H4sIAIsS+VgC/2WOQQ7DIAwE/+JzDu2VzyAnmNYSkMiY9BDl7yUhlYh6nFmvtRuwA/McoGSShJHA
+        ALrICQbwLFntJSsHvCFnm8tCcjTBqBRqTtH7jnFSXuknFpk9h4obKGG0qcTxqD/O2zGUGnkMuXVf
+        QpT+hG0DOy3kevy8WW9/6sKVJ6pbprkkvaJ9/wJqD+JA/gAAAA==
+    headers:
+      allow: ['GET, HEAD, OPTIONS']
+      content-encoding: [gzip]
+      content-length: ['151']
+      content-type: [application/json]
+      date: ['Thu, 20 Apr 2017 19:56:59 GMT']
+      server: [WSGIServer/0.1 Python/2.7.12+]
+      vary: ['Accept, Accept-Encoding, Cookie']
+    status: {code: 200, message: OK}
+version: 1

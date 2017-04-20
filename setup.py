@@ -37,13 +37,17 @@ setup(
     ],
     install_requires=parse_requirements(os.path.join(ROOT, 'requirements.txt')),
     tests_require=[
+        'vcrpy',
         'pytest',
         'tox',
     ],
     classifiers=[
         'Development Status :: 4 - Beta',
         'Programming Language :: Python',
+        'Programming Language :: Python :: 2',
+        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.5',
         'Topic :: Internet :: WWW/HTTP',
     ],
     entry_points={

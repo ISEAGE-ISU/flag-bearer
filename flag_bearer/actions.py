@@ -1,22 +1,14 @@
+from __future__ import print_function
+from six.moves import input
 import requests
 import sys
 import os
 
+from flag_bearer import utils
+
 
 def plant(conf):
-    api_url = "{}/api/{}".format(conf['iscore']['base_url'],
-                                 conf['iscore']['api_version'])
-
-    extras = conf.request_extras()
-    resp = requests.get(api_url + "/user/show.json", **extras)
-    if resp.status_code == 403:
-        print("[!!] Unauthorized: Invalid authentication information")
-        sys.exit(1)
-
-    resp.raise_for_status()
-    resp = resp.json()
-
-    flag_url = api_url + "/flags.json"
+    resp = utils.get_user(conf)
 
     team = None
     red = resp['profile']['is_red']
@@ -25,16 +17,10 @@ def plant(conf):
         print("Which team do you want to get flags for?")
         try:
             team = int(input("> "))
-            flag_url += "?team_number={}".format(team)
         except ValueError:
             print("Retreiving flags for all teams")
 
-    resp = requests.get(flag_url, **extras)
-    resp.raise_for_status()
-    resp = resp.json()
-
-    if team:
-        resp = list(filter(lambda x: x['team_number'] == team, resp))
+    resp = utils.get_flags(conf, team)
     flags = {i: x for i, x in enumerate(resp)}
 
     print("Pick the flag to place")
@@ -46,7 +32,6 @@ def plant(conf):
             print("{}. {}".format(flag_id, flag['name']))
 
     flag = int(input("> "))
-    print()
 
     if flag not in flags:
         print("[!!] Invalid selection")
@@ -54,7 +39,7 @@ def plant(conf):
 
     flag = flags[flag]
 
-    save = 'force_save' in conf['iscore'] if red or admin else True
+    save = conf.has_option('iscore', 'force_save') if red or admin else True
     if save or (not red and not admin):
         print("Where should I put the flag?")
         location = input("(./) > ")

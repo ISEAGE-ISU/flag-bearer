@@ -1,5 +1,5 @@
+from six.moves import input
 from six.moves.configparser import ConfigParser
-
 from os.path import expanduser, dirname, join, exists
 import getpass
 
@@ -8,13 +8,17 @@ ROOT = dirname(__file__)
 
 class Config(ConfigParser):
     @classmethod
-    def load(cls):
+    def load(cls, noflagrc=False):
         # Load configuration files in order
         # - default.ini
         # - ~/.flagrc
         conf = cls()
         conf.read(join(ROOT, 'default.ini'))
         
+        # Skip loading the flagrc, only used in tests
+        if noflagrc:
+            return conf
+
         flagrc = join(expanduser('~'), '.flagrc')
         print("Loading {}".format(flagrc))
         if exists(flagrc):
@@ -27,17 +31,17 @@ class Config(ConfigParser):
         """
         Merge the configuration files with parsed arguments.
         """
-        if 'iscore' not in self:
-            self['iscore'] = {}
+        if not self.has_section('iscore'):
+            self.add_section('iscore')
 
         if args.iscore_url:
-            self['iscore']['base_url'] = args.iscore_url
+            self.set('iscore', 'base_url', args.iscore_url)
 
         if args.api_version:
-            self['iscore']['api_version'] = args.api_version
+            self.set('iscore', 'api_version', args.api_version)
 
         if args.save:
-            self['iscore']['force_save'] = 'yes'
+            self.set('iscore', 'force_save', 'yes')
 
         self.credentials = None
         if args.api_token:

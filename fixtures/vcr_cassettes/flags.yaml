@@ -1,0 +1,36 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept: ['*/*']
+      Accept-Encoding: ['gzip, deflate']
+      Authorization: [Token 32257d57fcae845fc89db97a0835c78b60fb8adb]
+      Connection: [keep-alive]
+      User-Agent: [python-requests/2.13.0]
+    method: GET
+    uri: http://localhost:8000/api/v1/flags.json?team_number=3
+  response:
+    body:
+      string: !!binary |
+        H4sIAIsS+VgC/43TW4+aQBgG4L/ScL1tZGBA9w5WlIMCykGgaZoBBkSOKqLQ9L/XzW5tY8RwM5n5
+        Zibvc/N+/0UkIfEKmBeiQDkmXgkTH+svswzFxAsRohpdRyexRCpdS0KXYKP158rhuGJFjbEgmljn
+        HQZpqhR8YWWhEa8vYVXK1781RjnxSn5sfhan3MeHj3Nbvefw2Qn/zYmSDH/Gv78mf9ZXxNfoevnt
+        fSF+v3wy2WdMVdA0qnWmb1nTNDTvcYyIW17hym5McXv2ModsPZqhJpWacL+WlTy/McEdEwxhgl7m
+        +BnTAAd3O+XcjkKZu5+bYSpfknFQJxBF4+PW1ELcNYEl4Jh1VE3Q0vjGpO6Y1BAm1cucPGMqlVfw
+        Xr5QHUpujDSs/Fwtx2iTGXA5Y3dBHQhYZivWppeizaR2ldyY9B2THsKk+5jU6BmT5vfQlv2MLRKg
+        B2OdvCzOWFE3llHoKjIxfUB+fDxfwMaeFcqkcpgbE94x4RAm7GWSN+Yah/+AAGmjdOPRF6505qQF
+        Ghm1C1+OG2+9356OsrkAuJ3kUbpTJ0zh2Do7oDzXhN7uHHB4JwOPZdL4rOgVGbe7nZYc0MJnVKsL
+        gU5ztp0KS5ysQKe6WrAg1Wz11sSyOqAv/TLwQEY9lk1PSbSZsUZoYEkPy9WkayapEnDLJN3ZFAbo
+        qIW+4ytlimcmdFvoDKhIv4x6IKMfy/alZK5EQSZ5qCsaa43yqasGRbRUGmXVcTgzOEHLY9tF27nk
+        pd0yGNCKfhn9QAZ7ZNooc2loG60nNpBmqdqTkiK0ppJwYnH0pqi0uIVlZ3IuwxtUHYsDitAvg//J
+        fvwBI3rxFkYGAAA=
+    headers:
+      allow: ['GET, HEAD, OPTIONS']
+      content-encoding: [gzip]
+      content-length: ['638']
+      content-type: [application/json]
+      date: ['Thu, 20 Apr 2017 19:56:59 GMT']
+      server: [WSGIServer/0.1 Python/2.7.12+]
+      vary: ['Accept, Accept-Encoding, Cookie']
+    status: {code: 200, message: OK}
+version: 1

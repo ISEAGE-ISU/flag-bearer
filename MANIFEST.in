@@ -1,1 +1,6 @@
 include flag_bearer/default.ini
+include README.md
+include LICENSE
+include requirements.txt
+
+recursive-include fixtures *.yaml
