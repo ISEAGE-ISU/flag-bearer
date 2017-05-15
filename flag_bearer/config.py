@@ -39,7 +39,7 @@ class Config(ConfigParser):
         if args.api_version:
             self.set('iscore', 'api_version', args.api_version)
 
-        if args.save:
+        if hasattr(args, 'save') and args.save:
             self.set('iscore', 'force_save', 'yes')
 
         self.credentials = None

@@ -54,3 +54,22 @@ def plant(conf):
     else:
         print("Flag: {}".format(flag['data']))
 
+
+def download(conf):
+    resp = utils.get_user(conf)
+
+    team = None
+    red = resp['profile']['is_red']
+    admin = resp['is_superuser']
+    if red or admin:
+        print("Which team to you want to download flags for (blank for all)?")
+        try:
+            team = int(input("> "))
+        except ValueError:
+            print("Retreiving flags for all teams")
+
+    resp = utils.get_flags(conf, team)
+    flags = {i: x for i, x in enumerate(resp)}
+    utils.save_flags(flags)
+    print("Flags saved")
+

@@ -1,5 +1,6 @@
 import requests
 import sys
+import zipfile
 
 
 def get_api_url(conf):
@@ -38,3 +39,20 @@ def get_flags(conf, team=None):
         resp = list(filter(lambda x: x['team_number'] == team, resp))
 
     return resp
+
+
+def save_flags(flags, team=None):
+    if team:
+        filename = "team_{}_flags.zip".format(team)
+    else:
+        filename = "all_team_flags.zip"
+
+    z = zipfile.ZipFile(filename, 'a', compression=zipfile.ZIP_DEFLATED)
+
+    for flag in flags.values():
+        flag['data'] += '\n'
+        z.writestr(flag['filename'], flag['data'])
+
+    for zipped_file in z.filelist:
+        zipped_file.create_system = 0
+    z.close()

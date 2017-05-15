@@ -18,6 +18,10 @@ plant.add_argument('-s', '--save', action='store_true', default=False,
                    help="Force the flag to be downloaded")
 
 
+plant = subparsers.add_parser('download', help="Download all the flags for a team")
+plant.set_defaults(func=actions.download)
+
+
 def main():
     print("Flag Bearer v{}".format(__version__))
     args = parser.parse_args()
