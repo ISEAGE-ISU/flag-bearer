@@ -56,3 +56,7 @@ def save_flags(flags, team=None):
     for zipped_file in z.filelist:
         zipped_file.create_system = 0
     z.close()
+
+
+def user_is_red(user):
+    return resp['profile']['is_red'] or resp['is_superuser']

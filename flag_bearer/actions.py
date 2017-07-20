@@ -8,12 +8,10 @@ from flag_bearer import utils
 
 
 def plant(conf):
-    resp = utils.get_user(conf)
+    user = utils.get_user(conf)
 
     team = None
-    red = resp['profile']['is_red']
-    admin = resp['is_superuser']
-    if red or admin:
+    if utils.user_is_red(user):
         print("Which team do you want to get flags for?")
         try:
             team = int(input("> "))
@@ -40,7 +38,7 @@ def plant(conf):
     flag = flags[flag]
 
     save = conf.has_option('iscore', 'force_save') if red or admin else True
-    if save or (not red and not admin):
+    if save or (not utils.user_is_red(user)):
         print("Where should I put the flag?")
         location = input("(./) > ")
 
@@ -56,12 +54,10 @@ def plant(conf):
 
 
 def download(conf):
-    resp = utils.get_user(conf)
+    user = utils.get_user(conf)
 
     team = None
-    red = resp['profile']['is_red']
-    admin = resp['is_superuser']
-    if red or admin:
+    if utils.user_is_red(user):
         print("Which team to you want to download flags for (blank for all)?")
         try:
             team = int(input("> "))
@@ -73,3 +69,9 @@ def download(conf):
     utils.save_flags(flags)
     print("Flags saved")
 
+
+def verify(conf):
+    user = utils.get_user(conf)
+
+    if not utils.user_is_red(user):
+        print("[!] This command is only available to Red Teamers")

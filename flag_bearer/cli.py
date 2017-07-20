@@ -18,8 +18,13 @@ plant.add_argument('-s', '--save', action='store_true', default=False,
                    help="Force the flag to be downloaded")
 
 
-plant = subparsers.add_parser('download', help="Download all the flags for a team")
-plant.set_defaults(func=actions.download)
+download = subparsers.add_parser('download', help="Download all the flags for a team")
+download.set_defaults(func=actions.download)
+
+
+verify = subparsers.add_parser('verify', help="Verify a flag")
+verify.add_argument('flag', nargs='?', help="Path to a file containing a flag, -- to read from stdin, will be prompted otherwise")
+verify.set_defaults(func=actions.verify)
 
 
 def main():

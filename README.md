@@ -22,7 +22,7 @@ To plant flag, start by running the following command:
 You will then be asked for your API token, you can either paste in your API
 token or press enter to use your credentials instead.
 
-    Flag Bearer v0.1
+    Flag Bearer vX.X
     Enter your IScorE API Token (leave blank to use your credentials)
     > 
 
@@ -54,4 +54,30 @@ following command:
 
 This will create a zip file in your current directory containing the flags, the
 same as if you had downloaded them directly from IScorE.
+
+### Verify A Flag (Red Team Only)
+Red Team can verify that a flag is valid using the `verify` command. The command
+is used like this:
+
+    flag-bearer verify /path/to/flag/teamN.flag
+
+You will be prompted for your credentials as usuall, and will then be presented
+with the details of the flag, for example:
+
+    Flag: WWW /root/
+    Team: 13
+    Status: Not Captured
+
+    Capture Link: https://iscore.iseage.org/red/capture?team=13&flag=3
+
+The capture link will take you to the Flag Capture form, with the flag information
+pre-filled. If the flag is not valid, you will get the following:
+
+    Invalid Flag Data!
+
+    The flag data given did not match any flag in IScorE. You may want to mark
+    the flag as missing. If you include the actual flag data in your report,
+    White Team can manually verify the flag.
+
+    Flag Data: Akjdakdjfad...
 
