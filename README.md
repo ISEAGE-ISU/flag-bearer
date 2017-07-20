@@ -45,3 +45,13 @@ you will be asked what directory you wish to place the flag. **NOTE**: The
 current user must have permission to write to the specified directory. For Red
 Teamers, the default functionality is to print out the contents of the flag to
 make it easier to copy and paste.
+
+### Download All Flags
+You can also download all flags for your team (Red Team: any team) using the
+following command:
+
+    flag-bearer download
+
+This will create a zip file in your current directory containing the flags, the
+same as if you had downloaded them directly from IScorE.
+
