@@ -7,6 +7,10 @@ ROOT = dirname(__file__)
 
 
 class Config(ConfigParser):
+    def __init__(self, *args, **kwargs):
+        super(Config, self).__init__(*args, **kwargs)
+        self.cli_args = None
+
     @classmethod
     def load(cls, noflagrc=False):
         # Load configuration files in order
@@ -30,6 +34,8 @@ class Config(ConfigParser):
         """
         Merge the configuration files with parsed arguments.
         """
+        # Keep a copy of the args for an action
+        self.cli_args = args
         if not self.has_section('iscore'):
             self.add_section('iscore')
 
