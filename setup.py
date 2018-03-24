@@ -44,6 +44,12 @@ setup(
         'tox',
     ],
 
+    extras_require={
+        'remotes': [
+            'paramiko',
+        ],
+    },
+
     classifiers=[
         'Development Status :: 4 - Beta',
 
