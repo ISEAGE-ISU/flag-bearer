@@ -7,9 +7,7 @@ ROOT = dirname(__file__)
 
 
 class Config(ConfigParser):
-    def __init__(self, *args, **kwargs):
-        super(Config, self).__init__(*args, **kwargs)
-        self.cli_args = None
+    cli_args = None
 
     @classmethod
     def load(cls, noflagrc=False):
