@@ -1,10 +1,10 @@
 from __future__ import print_function
-from six import BytesIO
-from six.moves import input
-import os
+
 import sys
 
 import paramiko
+from six import BytesIO
+from six.moves import input
 
 from flag_bearer import utils
 

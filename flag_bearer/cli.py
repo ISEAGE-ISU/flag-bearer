@@ -34,9 +34,6 @@ try:
     remote_plant.add_argument('-p', '--port', help='The port of the remote host', default=22)
     remote_plant.add_argument('-u', '--username', help='The user to connect with')
     remote_plant.add_argument('-P', '--password', help='Password to connect with')
-    remote_plant.add_argument('-f', '--flag', help="The name of the flag to plant")
-    remote_plant.add_argument('-l', '--location', help="The location to plant the flag")
-    remote_plant.add_argument('-n', '--team', help="The team number")
 except ImportError:
     raise
     pass
