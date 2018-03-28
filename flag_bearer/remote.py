@@ -86,8 +86,6 @@ def plant(conf):
 def get_file_contents(ssh, file):
     """
     Retrieve the contents of file from the remote server.
-
-    This does ***NOT*** use SFTP since teams might disallow SFTP.
     """
     _, stdout, stderr = ssh.exec_command('cat {}'.format(file))
     err = stderr.read()
