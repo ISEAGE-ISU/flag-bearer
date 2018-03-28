@@ -1,5 +1,6 @@
 from __future__ import print_function
 
+import os
 import sys
 
 import paramiko
@@ -43,7 +44,7 @@ def plant(conf):
         sys.exit(1)
 
     flag = flags[flag]
-    data = flag['data']
+    data = flag['data'] + "\n"
 
     username = conf.cli_args.username
     host = conf.cli_args.host
@@ -57,17 +58,27 @@ def plant(conf):
 
     pkt = BytesIO()
     pkt.write(data.encode('utf-8'))
-    pkt.write(b'\n')
     pkt.seek(0)
 
+    full_location = os.path.join(location, flag['filename'])
     sftp = ssh.open_sftp()
-    sftp.putfo(pkt, location)
+    sftp.putfo(pkt, full_location)
     print("Verifying flag plant")
 
-    planted_contents = get_file_contents(ssh, location)
+    planted_contents = get_file_contents(ssh, full_location)
 
-    if planted_contents != data:
+    # We need to get rid of trailing newlines, even though the planted
+    # flag is supposed to have it, get_file_contents seems to remove it
+    planted_contents = planted_contents.strip()
+    data = data.strip()
+
+    if isinstance(planted_contents, tuple):
+        print("There was an error validating the capture:")
+        print(planted_contents[1])
+    elif planted_contents != data:
         print("Planted flag data does not match, double check the plant")
+        diff = utils.get_diff(planted_contents, data)
+        print(diff, end="")
     else:
         print("Flag Planted")
 
@@ -81,5 +92,5 @@ def get_file_contents(ssh, file):
     _, stdout, stderr = ssh.exec_command('cat {}'.format(file))
     err = stderr.read()
     if len(err) > 0:
-        return False
+        return False, err
     return stdout.read().decode('utf-8').strip()

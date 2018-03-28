@@ -55,3 +55,13 @@ following command:
 This will create a zip file in your current directory containing the flags, the
 same as if you had downloaded them directly from IScorE.
 
+### Remote
+You can remotely plant flags using the `remote` subcommand. You will need to
+install the remote extras: `pip install flag-bearer[remote]`. You can then plant
+a flag with the following command:
+
+    flag-beareer remote plant -H www.team11.isucdc.com -u root -P cdc -l /root/
+
+After running this command you will be prompted just like a local plant. The
+command will attempt to verify that the flag has been planted by reading the flag
+and comparing the actual flag data.

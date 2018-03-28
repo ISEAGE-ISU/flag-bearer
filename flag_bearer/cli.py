@@ -25,7 +25,7 @@ plant.set_defaults(func=actions.download)
 try:
     import paramiko
     from flag_bearer import remote as remote_actions
-    remote = subparsers.add_parser('remote')
+    remote = subparsers.add_parser('remote', help='Remotely plant flags')
     remote_sub = remote.add_subparsers()
 
     remote_plant = remote_sub.add_parser('plant')
@@ -34,8 +34,8 @@ try:
     remote_plant.add_argument('-p', '--port', help='The port of the remote host', default=22)
     remote_plant.add_argument('-u', '--username', help='The user to connect with')
     remote_plant.add_argument('-P', '--password', help='Password to connect with')
+    remote_plant.add_argument('-l', '--location', help="The location to plant the flag", required=True)
 except ImportError:
-    raise
     pass
 
 
