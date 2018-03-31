@@ -45,6 +45,8 @@ class Config(ConfigParser):
         self.credentials = None
         if args.api_token:
             self.api_token = args.api_token
+        elif self.has_option('iscore', 'api_token'):
+            self.api_token = self.get('iscore', 'api_token')
         else:
             print("Enter your IScorE API Token (leave blank to use your credentials)")
             self.api_token = input("> ")
