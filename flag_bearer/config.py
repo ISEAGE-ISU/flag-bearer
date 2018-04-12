@@ -11,10 +11,12 @@ class Config(ConfigParser):
     def load(cls, noflagrc=False):
         # Load configuration files in order
         # - default.ini
+        # - /etc/flagrc
         # - ~/.flagrc
         conf = cls()
         conf.read(join(ROOT, 'default.ini'))
-        
+        conf.read('/etc/flagrc')
+
         # Skip loading the flagrc, only used in tests
         if noflagrc:
             return conf
@@ -45,6 +47,8 @@ class Config(ConfigParser):
         self.credentials = None
         if args.api_token:
             self.api_token = args.api_token
+        elif self.has_option('iscore', 'api_token'):
+            self.api_token = self.get('iscore', 'api_token')
         else:
             print("Enter your IScorE API Token (leave blank to use your credentials)")
             self.api_token = input("> ")
