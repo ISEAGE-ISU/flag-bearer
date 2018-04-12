@@ -1,3 +1,4 @@
+import difflib
 import requests
 import sys
 import zipfile
@@ -56,3 +57,8 @@ def save_flags(flags, team=None):
     for zipped_file in z.filelist:
         zipped_file.create_system = 0
     z.close()
+
+
+def get_diff(planted, actual):
+    diff = difflib.ndiff([planted], [actual])
+    return ''.join(diff)

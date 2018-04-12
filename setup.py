@@ -4,7 +4,6 @@ import re
 from setuptools import setup, find_packages
 from flag_bearer import __version__
 
-
 ROOT = os.path.dirname(__file__)
 
 
@@ -23,6 +22,12 @@ def read(fname):
     return open(os.path.join(ROOT, fname)).read()
 
 
+tests_require = [
+    'vcrpy',
+    'pytest',
+    'tox',
+]
+
 setup(
     name='flag-bearer',
     version=__version__,
@@ -38,11 +43,14 @@ setup(
         'pytest-runner',
     ],
     install_requires=parse_requirements(os.path.join(ROOT, 'requirements.txt')),
-    tests_require=[
-        'vcrpy',
-        'pytest',
-        'tox',
-    ],
+    tests_require=tests_require,
+
+    extras_require={
+        'remote': [
+            'paramiko',
+        ],
+        'tests': tests_require,
+    },
 
     classifiers=[
         'Development Status :: 4 - Beta',
@@ -68,4 +76,3 @@ setup(
         'flag_bearer': ['default.ini'],
     },
 )
-

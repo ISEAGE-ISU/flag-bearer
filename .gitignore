@@ -9,3 +9,4 @@ build/
 .cache/
 .eggs/
 .tox/
+.pytest_cache/

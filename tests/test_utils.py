@@ -32,3 +32,9 @@ def test_get_flags(config):
     assert flags[0]['team_number'] == 3
     assert len(flags[0]['data']) == 50
 
+
+def test_get_diff():
+    side_a = "abc"
+    side_b = "abd"
+    diff = utils.get_diff(side_a, side_b)
+    assert diff == "- abc+ abd"

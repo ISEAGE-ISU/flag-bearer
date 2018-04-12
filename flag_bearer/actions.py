@@ -1,8 +1,9 @@
 from __future__ import print_function
-from six.moves import input
-import requests
-import sys
+
 import os
+import sys
+
+from six.moves import input
 
 from flag_bearer import utils
 
