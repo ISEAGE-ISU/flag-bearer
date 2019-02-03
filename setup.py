@@ -25,6 +25,7 @@ def read(fname):
 tests_require = [
     'vcrpy',
     'pytest',
+    'pytest-mock',
     'tox',
 ]
 

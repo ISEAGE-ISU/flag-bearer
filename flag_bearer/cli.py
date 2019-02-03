@@ -19,8 +19,14 @@ plant.add_argument('-s', '--save', action='store_true', default=False,
                    help="Force the flag to be downloaded")
 
 
-plant = subparsers.add_parser('download', help="Download all the flags for a team")
-plant.set_defaults(func=actions.download)
+download = subparsers.add_parser('download', help="Download all the flags for a team")
+download.set_defaults(func=actions.download)
+
+login = subparsers.add_parser('login', help='Set the api token in your flagrc')
+login.set_defaults(func=actions.login)
+login.set_defaults(prompt=False)
+login.add_argument('-t', '--token', help='An explicit api token')
+login.add_argument('-c', '--config', default='~/.flagrc', help='flagrc to save token to')
 
 try:
     import paramiko
@@ -47,7 +53,8 @@ def main():
         parser.print_help()
         return
 
+    prompt_creds = args.prompt if hasattr(args, 'prompt') else True
     conf = config.Config.load()
-    conf.merge(args)
+    conf.merge(args, prompt=prompt_creds)
     args.func(conf)
 

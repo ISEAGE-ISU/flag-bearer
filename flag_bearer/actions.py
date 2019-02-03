@@ -1,9 +1,11 @@
 from __future__ import print_function
 
+import getpass
 import os
 import sys
 
 from six.moves import input
+from six.moves.configparser import ConfigParser
 
 from flag_bearer import utils
 
@@ -74,3 +76,21 @@ def download(conf):
     utils.save_flags(flags)
     print("Flags saved")
 
+
+def login(conf):
+    if conf.cli_args.token:
+        token = conf.cli_args.token
+    else:
+        token = getpass.getpass('Token: ')
+    flagrc_path = os.path.join(os.path.expanduser(conf.cli_args.config))
+
+    print("Writing token to {}".format(flagrc_path))
+    flagrc = ConfigParser()
+    flagrc.read(flagrc_path)
+
+    if not flagrc.has_section('iscore'):
+        flagrc.add_section('iscore')
+    
+    flagrc.set('iscore', 'api_token', token)
+    with open(flagrc_path, 'w') as fp:
+        flagrc.write(fp)

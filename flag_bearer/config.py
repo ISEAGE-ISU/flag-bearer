@@ -30,9 +30,12 @@ class Config(ConfigParser):
 
         return conf
 
-    def merge(self, args):
+    def merge(self, args, prompt=True):
         """
         Merge the configuration files with parsed arguments.
+
+        :param args: The arguments passed on the command line
+        :param prompt: Whether to prompt for credentials
         """
         # Keep a copy of the args for an action
         self.cli_args = args
@@ -53,7 +56,7 @@ class Config(ConfigParser):
             self.api_token = args.api_token
         elif self.has_option('iscore', 'api_token'):
             self.api_token = self.get('iscore', 'api_token')
-        else:
+        elif prompt:
             print("Enter your IScorE API Token (leave blank to use your credentials)")
             self.api_token = input("> ")
 
